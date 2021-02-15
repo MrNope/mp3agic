@@ -1,3 +1,15 @@
+# mp3agic fork by MrNope
+
+## Changes
+
+- added `ID3v2.getAlbumImageList()` for reading multiple artwork frames
+- added `ID3v2Artwork` data class to support the above
+
+---
+### Original Readme Below
+
+---
+
 # mp3agic
 [![Build Status](https://travis-ci.org/mpatric/mp3agic.png?branch=master)](https://travis-ci.org/mpatric/mp3agic)
 [![Coverage Status](https://coveralls.io/repos/mpatric/mp3agic/badge.svg?branch=master)](https://coveralls.io/r/mpatric/mp3agic?branch=master)
@@ -211,7 +223,7 @@ mp3file.save("MyMp3File.mp3");
 
 ### Reading and writing ID3v2 frames directly
 
-Frame IDs are defined in the [ID3v2 specification](https://id3.org/Developer%20Information "ID3v2 specification"). Frames can be read from an ID3v2 tag using these. 
+Frame IDs are defined in the [ID3v2 specification](https://id3.org/Developer%20Information "ID3v2 specification"). Frames can be read from an ID3v2 tag using these.
 
 For now, the best approach to access frames not yet supported by convenience methods is to extend the `AbstractID3v2Tag` class, following the pattern for other frames already done. Please fork the project on github and submit a pull request if you add anything useful.
 

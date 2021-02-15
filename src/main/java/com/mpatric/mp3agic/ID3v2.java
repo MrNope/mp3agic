@@ -1,6 +1,8 @@
 package com.mpatric.mp3agic;
 
+import java.com.mpatric.mp3agic.ID3v2Artwork;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface ID3v2 extends ID3v1 {
@@ -110,6 +112,12 @@ public interface ID3v2 extends ID3v1 {
 	void setEncoder(String encoder);
 
 	byte[] getAlbumImage();
+
+	/**
+	 * Added
+	 * @return List of artwork with mime types
+	 */
+	List<ID3v2Artwork> getAlbumImageList();
 
 	void setAlbumImage(byte[] albumImage, String mimeType);
 

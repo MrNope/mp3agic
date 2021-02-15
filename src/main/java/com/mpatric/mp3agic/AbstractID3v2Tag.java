@@ -1,5 +1,6 @@
 package com.mpatric.mp3agic;
 
+import java.com.mpatric.mp3agic.ID3v2Artwork;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -1031,6 +1032,18 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
+	public List<ID3v2Artwork> getAlbumImageList() {
+		List<ID3v2PictureFrameData> frameDataList = createPictureFrameDataList(obseleteFormat ? ID_IMAGE_OBSELETE : ID_IMAGE);
+		List<ID3v2Artwork> list = new ArrayList<>();
+
+		for (ID3v2PictureFrameData frameData : frameDataList) {
+			list.add(new ID3v2Artwork(frameData.getMimeType(), frameData.getImageData()));
+		}
+
+		return list;
+	}
+
+	@Override
 	public void setAlbumImage(byte[] albumImage, String mimeType) {
 		setAlbumImage(albumImage, mimeType, (byte) 0, null);
 	}
@@ -1206,6 +1219,27 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 			}
 		}
 		return null;
+	}
+
+	private List<ID3v2PictureFrameData> createPictureFrameDataList(String id) {
+		ID3v2FrameSet frameSet = frameSets.get(id);
+
+		List<ID3v2PictureFrameData> frames = new ArrayList();
+		if (frameSet != null) {
+			for (ID3v2Frame frame : frameSet.getFrames()) {
+				ID3v2PictureFrameData frameData;
+				try {
+					if (obseleteFormat)
+						frameData = new ID3v2ObseletePictureFrameData(useFrameUnsynchronisation(), frame.getData());
+					else
+						frameData = new ID3v2PictureFrameData(useFrameUnsynchronisation(), frame.getData());
+					frames.add(frameData);
+				} catch (InvalidDataException e) {
+					// do nothing
+				}
+			}
+		}
+		return frames;
 	}
 
 	private ID3v2PopmFrameData extractPopmFrameData(final String id) {
