@@ -652,6 +652,34 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
+	public List<String> getGenreDescriptionList() {
+		List<String> outputList = new ArrayList<>();
+
+		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_GENRE_OBSELETE : ID_GENRE);
+		if (frameData == null || frameData.getText() == null || frameData.getText().toStrings() == null) {
+			return outputList;
+		}
+
+		String[] textList = frameData.getText().toStrings();
+
+		for (String text : textList) {
+			if (text != null) {
+				int genreNum = getGenre(text);
+				if (genreNum >= 0 && genreNum < ID3v1Genres.GENRES.length) {
+					outputList.add(ID3v1Genres.GENRES[genreNum]);
+				} else {
+					String description = extractGenreDescription(text);
+					if (description != null && description.length() > 0) {
+						outputList.add(description);
+					}
+				}
+			}
+		}
+
+		return outputList;
+	}
+
+	@Override
 	public void setGenreDescription(String text) throws IllegalArgumentException {
 		int genreNum = ID3v1Genres.matchGenreDescription(text);
 		if (genreNum < 0) {

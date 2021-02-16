@@ -6,6 +6,7 @@
 - added `ID3v2Artwork` data class to support the above
 - added `EncodedText.toStrings()` for supporting ID3v2.4-style multi-value field, delimited with null characters
 - added `ID3v2.getArtistList()` for reading multiple artists from a single frame
+- added `ID3v2.getGenreDescriptionList()` for reading multiple genres from a single frame
 
 ---
 ### Original Readme Below

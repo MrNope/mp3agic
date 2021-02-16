@@ -133,6 +133,12 @@ public interface ID3v2 extends ID3v1 {
 	 */
 	List<String> getArtistList();
 
+	/**
+	 * Added
+	 * @return List of genres, split on null characters, forward compatible with ID3v2.4
+	 */
+	List<String> getGenreDescriptionList();
+
 	int getWmpRating();
 
 	void setWmpRating(int rating);
