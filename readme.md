@@ -4,10 +4,11 @@
 
 - added `ID3v2.getAlbumImageList()` for reading multiple artwork frames
 - added `ID3v2Artwork` data class to support the above
+- added `EncodedText.toStrings()` for supporting ID3v2.4-style multi-value field, delimited with null characters
+- added `ID3v2.getArtistList()` for reading multiple artists from a single frame
 
 ---
 ### Original Readme Below
-
 ---
 
 # mp3agic

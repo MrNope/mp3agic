@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.util.Arrays;
+import java.util.List;
 
 public class EncodedText {
 
@@ -201,6 +202,14 @@ public class EncodedText {
 		}
 	}
 
+	public String[] toStrings() {
+		try {
+			return bytesToStrings(value, characterSetForTextEncoding(textEncoding));
+		} catch (CharacterCodingException e) {
+			return null;
+		}
+	}
+
 	public String getCharacterSet() {
 		return characterSetForTextEncoding(textEncoding);
 	}
@@ -236,6 +245,13 @@ public class EncodedText {
 		int length = s.indexOf(0);
 		if (length == -1) return s;
 		return s.substring(0, length);
+	}
+
+	private static String[] bytesToStrings(byte[] bytes, String characterSet) throws CharacterCodingException {
+		CharBuffer cbuf = bytesToCharBuffer(bytes, characterSet);
+		String s = cbuf.toString();
+		int length = s.length();
+		return s.split("\u0000");
 	}
 
 	protected static CharBuffer bytesToCharBuffer(byte[] bytes, String characterSet) throws CharacterCodingException {

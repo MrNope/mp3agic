@@ -127,6 +127,12 @@ public interface ID3v2 extends ID3v1 {
 
 	String getAlbumImageMimeType();
 
+	/**
+	 * Added
+	 * @return List of artists, split on null characters, forward compatible with ID3v2.4
+	 */
+	List<String> getArtistList();
+
 	int getWmpRating();
 
 	void setWmpRating(int rating);

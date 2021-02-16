@@ -457,6 +457,15 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
+	public List<String> getArtistList() {
+		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ARTIST_OBSELETE : ID_ARTIST);
+		if (frameData != null && frameData.getText() != null) {
+			return Arrays.asList(frameData.getText().toStrings());
+		}
+		return null;
+	}
+
+	@Override
 	public void setArtist(String artist) {
 		if (artist != null && artist.length() > 0) {
 			invalidateDataLength();
