@@ -3,10 +3,14 @@
 ## Changes
 
 - added `ID3v2.getAlbumImageList()` for reading multiple artwork frames
-- added `ID3v2Artwork` data class to support the above
+	- added `ID3v2Artwork` data class to support the above
 - added `EncodedText.toStrings()` for supporting ID3v2.4-style multi-value field, delimited with null characters
 - added `ID3v2.getArtistList()` for reading multiple artists from a single frame
+	- added `AbstractID3v2Tag.createPictureFrameDataList()` to support the above
 - added `ID3v2.getGenreDescriptionList()` for reading multiple genres from a single frame
+- added `ID3v2.getCommentList()` for reading multiple comment frames
+	- added `AbstractID3v2Tag.extractCommentFrameDataList()` to support the above
+	- added `ID3v2Comment` data class to support the above
 
 ---
 ### Original Readme Below

@@ -119,6 +119,8 @@ public interface ID3v2 extends ID3v1 {
 	 */
 	List<ID3v2Artwork> getAlbumImageList();
 
+	List<ID3v2Comment> getCommentList();
+
 	void setAlbumImage(byte[] albumImage, String mimeType);
 
 	void setAlbumImage(byte[] albumImage, String mimeType, byte imageType, String imageDescription);

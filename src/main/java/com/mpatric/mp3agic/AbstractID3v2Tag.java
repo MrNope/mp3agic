@@ -715,12 +715,30 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 		return null;
 	}
 
-
 	@Override
 	public String getComment() {
 		ID3v2CommentFrameData frameData = extractCommentFrameData(obseleteFormat ? ID_COMMENT_OBSELETE : ID_COMMENT, false);
 		if (frameData != null && frameData.getComment() != null) return frameData.getComment().toString();
 		return null;
+	}
+
+	/**
+	 * Modified version of {@link #getComment} that returns all frames, with descriptions included
+	 * @return
+	 */
+	@Override
+	public List<ID3v2Comment> getCommentList() {
+		List<ID3v2Comment> outputList = new ArrayList<>();
+
+		List<ID3v2CommentFrameData> frameDataItems = extractCommentFrameDataList(obseleteFormat ? ID_COMMENT_OBSELETE : ID_COMMENT, false);
+		for (ID3v2CommentFrameData frameData : frameDataItems) {
+			if (frameData != null && frameData.getComment() != null) {
+				String desc = frameData.getDescription() == null ? null : frameData.getDescription().toString();
+				outputList.add(new ID3v2Comment(desc, frameData.getComment().toString()));
+			}
+		}
+
+		return outputList;
 	}
 
 	@Override
@@ -1241,6 +1259,35 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 		return null;
 	}
 
+	/**
+	 * Modified version of {@link #extractCommentFrameData} that returns all frames, instead of the first one
+	 * @param id
+	 * @param itunes
+	 * @return
+	 */
+	private List<ID3v2CommentFrameData> extractCommentFrameDataList(String id, boolean itunes) {
+		ID3v2FrameSet frameSet = frameSets.get(id);
+
+		List<ID3v2CommentFrameData> frames = new ArrayList<>();
+
+		if (frameSet != null) {
+			for (ID3v2Frame frame : frameSet.getFrames()) {
+				ID3v2CommentFrameData frameData;
+				try {
+					frameData = new ID3v2CommentFrameData(useFrameUnsynchronisation(), frame.getData());
+					if (itunes && ITUNES_COMMENT_DESCRIPTION.equals(frameData.getDescription().toString())) {
+						frames.add(frameData);
+					} else if (!itunes) {
+						frames.add(frameData);
+					}
+				} catch (InvalidDataException e) {
+					// Do nothing
+				}
+			}
+		}
+		return frames;
+	}
+
 	private ID3v2PictureFrameData createPictureFrameData(String id) {
 		ID3v2FrameSet frameSet = frameSets.get(id);
 		if (frameSet != null) {
@@ -1258,10 +1305,15 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 		return null;
 	}
 
+	/**
+	 * Modified version of {@link #createPictureFrameData} that returns all frames, instead of the first one
+	 * @param id
+	 * @return
+	 */
 	private List<ID3v2PictureFrameData> createPictureFrameDataList(String id) {
 		ID3v2FrameSet frameSet = frameSets.get(id);
 
-		List<ID3v2PictureFrameData> frames = new ArrayList();
+		List<ID3v2PictureFrameData> frames = new ArrayList<>();
 		if (frameSet != null) {
 			for (ID3v2Frame frame : frameSet.getFrames()) {
 				ID3v2PictureFrameData frameData;
