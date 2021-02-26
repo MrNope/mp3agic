@@ -29,7 +29,18 @@ public class ID3v2PictureFrameData extends AbstractID3v2FrameData {
 
 	@Override
 	protected void unpackFrameData(byte[] bytes) throws InvalidDataException {
-		int marker = BufferTools.indexOfTerminator(bytes, 1, 1);
+		int startIndex = 1;
+		int marker = BufferTools.indexOfTerminator(bytes, startIndex, 1);
+
+		// BEGIN WORKAROUND
+		// sometimes a few junk bytes come through ahead of the mime type
+		// try to skip past these
+		if (marker > 0 && marker < 5) {
+			startIndex = marker + 1;
+			marker = BufferTools.indexOfTerminator(bytes, startIndex, 1);
+		}
+		// BEGIN WORKAROUND
+
 		if (marker >= 0) {
 			try {
 				mimeType = BufferTools.byteBufferToString(bytes, 1, marker - 1);

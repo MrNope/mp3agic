@@ -11,6 +11,7 @@
 - added `ID3v2.getCommentList()` for reading multiple comment frames
 	- added `AbstractID3v2Tag.extractCommentFrameDataList()` to support the above
 	- added `ID3v2Comment` data class to support the above
+- adda workaround to `ID3v2PictureFrameData.unpackFrameData()` where junk bytes would sometime come through ahead of the mime type
 
 ---
 ### Original Readme Below
