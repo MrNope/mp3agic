@@ -462,7 +462,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 		if (frameData != null && frameData.getText() != null) {
 			return Arrays.asList(frameData.getText().toStrings());
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
