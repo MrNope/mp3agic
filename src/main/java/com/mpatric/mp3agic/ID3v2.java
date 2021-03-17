@@ -1,5 +1,8 @@
 package com.mpatric.mp3agic;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.com.mpatric.mp3agic.ID3v2Artwork;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,34 +26,42 @@ public interface ID3v2 extends ID3v1 {
 
 	void setBPM(int bpm);
 
+	@Nullable
 	String getGrouping();
 
 	void setGrouping(String grouping);
 
+	@Nullable
 	String getKey();
 
 	void setKey(String key);
 
+	@Nullable
 	String getDate();
 
 	void setDate(String date);
 
+	@Nullable
 	String getComposer();
 
 	void setComposer(String composer);
 
+	@Nullable
 	String getPublisher();
 
 	void setPublisher(String publisher);
 
+	@Nullable
 	String getOriginalArtist();
 
 	void setOriginalArtist(String originalArtist);
 
+	@Nullable
 	String getAlbumArtist();
 
 	void setAlbumArtist(String albumArtist);
 
+	@Nullable
 	String getCopyright();
 
 	void setCopyright(String copyright);
@@ -87,6 +98,7 @@ public interface ID3v2 extends ID3v1 {
 
 	void setPublisherUrl(String url);
 
+	@Nullable
 	String getUrl();
 
 	void setUrl(String url);
@@ -117,8 +129,14 @@ public interface ID3v2 extends ID3v1 {
 	 * Added
 	 * @return List of artwork with mime types
 	 */
+	@NotNull
 	List<ID3v2Artwork> getAlbumImageList();
 
+	/**
+	 * Added
+	 * @return List of comments with descriptions
+	 */
+	@NotNull
 	List<ID3v2Comment> getCommentList();
 
 	void setAlbumImage(byte[] albumImage, String mimeType);
@@ -127,18 +145,21 @@ public interface ID3v2 extends ID3v1 {
 
 	void clearAlbumImage();
 
+	@Nullable
 	String getAlbumImageMimeType();
 
 	/**
 	 * Added
 	 * @return List of artists, split on null characters, forward compatible with ID3v2.4
 	 */
+	@NotNull
 	List<String> getArtistList();
 
 	/**
 	 * Added
 	 * @return List of genres, split on null characters, forward compatible with ID3v2.4
 	 */
+	@NotNull
 	List<String> getGenreDescriptionList();
 
 	int getWmpRating();
@@ -149,6 +170,7 @@ public interface ID3v2 extends ID3v1 {
 
 	void setItunesComment(String itunesComment);
 
+	@Nullable
 	String getLyrics();
 
 	void setLyrics(String lyrics);

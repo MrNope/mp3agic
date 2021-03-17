@@ -1,5 +1,8 @@
 package com.mpatric.mp3agic;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.com.mpatric.mp3agic.ID3v2Artwork;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -434,7 +437,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getGrouping() {
+	public @Nullable String getGrouping() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_GROUPING_OBSELETE : ID_GROUPING);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -450,14 +453,14 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getArtist() {
+	public @Nullable String getArtist() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ARTIST_OBSELETE : ID_ARTIST);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
 	}
 
 	@Override
-	public List<String> getArtistList() {
+	public @NotNull List<String> getArtistList() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ARTIST_OBSELETE : ID_ARTIST);
 		if (frameData != null && frameData.getText() != null) {
 			return Arrays.asList(frameData.getText().toStrings());
@@ -475,7 +478,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getAlbumArtist() {
+	public @Nullable String getAlbumArtist() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ALBUM_ARTIST_OBSELETE : ID_ALBUM_ARTIST);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -491,7 +494,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getTitle() {
+	public @Nullable String getTitle() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_TITLE_OBSELETE : ID_TITLE);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -507,7 +510,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getAlbum() {
+	public @Nullable String getAlbum() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ALBUM_OBSELETE : ID_ALBUM);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -523,7 +526,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getYear() {
+	public @Nullable String getYear() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_YEAR_OBSELETE : ID_YEAR);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -539,7 +542,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getDate() {
+	public @Nullable String getDate() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_DATE_OBSELETE : ID_DATE);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -631,6 +634,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
+	@Nullable
 	public String getGenreDescription() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_GENRE_OBSELETE : ID_GENRE);
 		if (frameData == null || frameData.getText() == null) {
@@ -652,6 +656,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
+	@NotNull
 	public List<String> getGenreDescriptionList() {
 		List<String> outputList = new ArrayList<>();
 
@@ -727,7 +732,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	 * @return
 	 */
 	@Override
-	public List<ID3v2Comment> getCommentList() {
+	public @NotNull List<ID3v2Comment> getCommentList() {
 		List<ID3v2Comment> outputList = new ArrayList<>();
 
 		List<ID3v2CommentFrameData> frameDataItems = extractCommentFrameDataList(obseleteFormat ? ID_COMMENT_OBSELETE : ID_COMMENT, false);
@@ -751,7 +756,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getItunesComment() {
+	public @Nullable String getItunesComment() {
 		ID3v2CommentFrameData frameData = extractCommentFrameData(obseleteFormat ? ID_COMMENT_OBSELETE : ID_COMMENT, true);
 		if (frameData != null && frameData.getComment() != null) return frameData.getComment().toString();
 		return null;
@@ -783,7 +788,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getLyrics() {
+	public @Nullable String getLyrics() {
 		ID3v2CommentFrameData frameData;
 		if (obseleteFormat)
 			return null;
@@ -806,7 +811,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getComposer() {
+	public @Nullable String getComposer() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_COMPOSER_OBSELETE : ID_COMPOSER);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -822,7 +827,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getPublisher() {
+	public @Nullable String getPublisher() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_PUBLISHER_OBSELETE : ID_PUBLISHER);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -838,7 +843,8 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getOriginalArtist() {
+	public @Nullable
+	@Nullable String getOriginalArtist() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ORIGINAL_ARTIST_OBSELETE : ID_ORIGINAL_ARTIST);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -854,7 +860,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getCopyright() {
+	public @Nullable String getCopyright() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_COPYRIGHT_OBSELETE : ID_COPYRIGHT);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
@@ -870,7 +876,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getArtistUrl() {
+	public @Nullable String getArtistUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_ARTIST_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -886,7 +892,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getCommercialUrl() {
+	public @Nullable String getCommercialUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_COMMERCIAL_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -902,7 +908,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getCopyrightUrl() {
+	public @Nullable String getCopyrightUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_COPYRIGHT_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -918,7 +924,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getAudiofileUrl() {
+	public @Nullable String getAudiofileUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_AUDIOFILE_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -950,7 +956,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getRadiostationUrl() {
+	public @Nullable String getRadiostationUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_RADIOSTATION_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -966,7 +972,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getPaymentUrl() {
+	public @Nullable String getPaymentUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_PAYMENT_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -982,7 +988,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getPublisherUrl() {
+	public @Nullable String getPublisherUrl() {
 		ID3v2WWWFrameData frameData = extractWWWFrameData(ID_PUBLISHER_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -998,7 +1004,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getUrl() {
+	public @Nullable String getUrl() {
 		ID3v2UrlFrameData frameData = extractUrlFrameData(obseleteFormat ? ID_URL_OBSELETE : ID_URL);
 		if (frameData != null) return frameData.getUrl();
 		return null;
@@ -1121,7 +1127,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public String getAlbumImageMimeType() {
+	public @Nullable String getAlbumImageMimeType() {
 		ID3v2PictureFrameData frameData = createPictureFrameData(obseleteFormat ? ID_IMAGE_OBSELETE : ID_IMAGE);
 		if (frameData != null && frameData.getMimeType() != null) return frameData.getMimeType();
 		return null;

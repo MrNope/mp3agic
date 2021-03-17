@@ -1,5 +1,7 @@
 package com.mpatric.mp3agic;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -167,7 +169,7 @@ public class ID3v1Tag implements ID3v1 {
 	}
 
 	@Override
-	public String getTitle() {
+	public @Nullable String getTitle() {
 		return title;
 	}
 
