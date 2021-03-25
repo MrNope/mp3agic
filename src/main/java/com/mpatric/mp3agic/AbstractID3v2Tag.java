@@ -843,8 +843,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
 	}
 
 	@Override
-	public @Nullable
-	@Nullable String getOriginalArtist() {
+	public @Nullable String getOriginalArtist() {
 		ID3v2TextFrameData frameData = extractTextFrameData(obseleteFormat ? ID_ORIGINAL_ARTIST_OBSELETE : ID_ORIGINAL_ARTIST);
 		if (frameData != null && frameData.getText() != null) return frameData.getText().toString();
 		return null;
